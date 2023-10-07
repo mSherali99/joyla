@@ -16,6 +16,11 @@ class JoylaApi {
       if (status >= 200 && status <= 300) {
         resultList = ((response.data as List).map((e) => JoylaModel.fromJson(e))).toList();
       }
+
+
+
+
+
       // print(response.data);
       return resultList;
     } catch (e) {
