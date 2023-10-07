@@ -1,0 +1,15 @@
+uz.gita.joyla.app-jetified-window-1.0.0-beta04-0 C:\Users\e-7270\.gradle\caches\transforms-3\25cee5f028ac2a6b79fd6278ff5b59e2\transformed\jetified-window-1.0.0-beta04\res
+uz.gita.joyla.app-jetified-annotation-experimental-1.1.0-1 C:\Users\e-7270\.gradle\caches\transforms-3\6c0c163cc77ae6c91f9f7dfcd179c29c\transformed\jetified-annotation-experimental-1.1.0\res
+uz.gita.joyla.app-core-1.6.0-2 C:\Users\e-7270\.gradle\caches\transforms-3\7e9df2ac2213a6bd3cef0f2f27870d79\transformed\core-1.6.0\res
+uz.gita.joyla.app-jetified-window-java-1.0.0-beta04-3 C:\Users\e-7270\.gradle\caches\transforms-3\ae81e06d24c799147c26814497a2a305\transformed\jetified-window-java-1.0.0-beta04\res
+uz.gita.joyla.app-main-4 C:\Users\e-7270\AndroidStudioProjects\joyla\android\app\src\main\res
+uz.gita.joyla.app-release-5 C:\Users\e-7270\AndroidStudioProjects\joyla\android\app\src\release\res
+uz.gita.joyla.app-pngs-6 C:\Users\e-7270\AndroidStudioProjects\joyla\build\app\generated\res\pngs\release
+uz.gita.joyla.app-resValues-7 C:\Users\e-7270\AndroidStudioProjects\joyla\build\app\generated\res\resValues\release
+uz.gita.joyla.app-rs-8 C:\Users\e-7270\AndroidStudioProjects\joyla\build\app\generated\res\rs\release
+uz.gita.joyla.app-mergeReleaseResources-9 C:\Users\e-7270\AndroidStudioProjects\joyla\build\app\intermediates\incremental\release\mergeReleaseResources\merged.dir
+uz.gita.joyla.app-mergeReleaseResources-10 C:\Users\e-7270\AndroidStudioProjects\joyla\build\app\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+uz.gita.joyla.app-merged_res-11 C:\Users\e-7270\AndroidStudioProjects\joyla\build\app\intermediates\merged_res\release
+uz.gita.joyla.app-packaged_res-12 C:\Users\e-7270\AndroidStudioProjects\joyla\build\path_provider_android\intermediates\packaged_res\release
+uz.gita.joyla.app-packaged_res-13 C:\Users\e-7270\AndroidStudioProjects\joyla\build\shared_preferences_android\intermediates\packaged_res\release
+uz.gita.joyla.app-packaged_res-14 C:\Users\e-7270\AndroidStudioProjects\joyla\build\sqflite\intermediates\packaged_res\release

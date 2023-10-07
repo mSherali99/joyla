@@ -1,0 +1,4 @@
+#Thu Oct 05 19:17:19 UZT 2023
+base.0=C\:\\Users\\e-7270\\AndroidStudioProjects\\joyla\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

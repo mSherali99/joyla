@@ -1,0 +1,180 @@
+// **************************************************************************
+// FloorGenerator
+// **************************************************************************
+
+// ignore: avoid_classes_with_only_static_members
+class $FloorAppDatabase {
+  /// Creates a database builder for a persistent database.
+  /// Once a database is built, you should keep a reference to it and re-use it.
+  static _$AppDatabaseBuilder databaseBuilder(String name) =>
+      _$AppDatabaseBuilder(name);
+
+  /// Creates a database builder for an in memory database.
+  /// Information stored in an in memory database disappears when the process is killed.
+  /// Once a database is built, you should keep a reference to it and re-use it.
+  static _$AppDatabaseBuilder inMemoryDatabaseBuilder() =>
+      _$AppDatabaseBuilder(null);
+}
+
+class _$AppDatabaseBuilder {
+  _$AppDatabaseBuilder(this.name);
+
+  final String? name;
+
+  final List<Migration> _migrations = [];
+
+  Callback? _callback;
+
+  /// Adds migrations to the builder.
+  _$AppDatabaseBuilder addMigrations(List<Migration> migrations) {
+    _migrations.addAll(migrations);
+    return this;
+  }
+
+  /// Adds a database [Callback] to the builder.
+  _$AppDatabaseBuilder addCallback(Callback callback) {
+    _callback = callback;
+    return this;
+  }
+
+  /// Creates the database and initializes it.
+  Future<AppDatabase> build() async {
+    final path = name != null
+        ? await sqfliteDatabaseFactory.getDatabasePath(name!)
+        : ':memory:';
+    final database = _$AppDatabase();
+    database.database = await database.open(
+      path,
+      _migrations,
+      _callback,
+    );
+    return database;
+  }
+}
+
+class _$AppDatabase extends AppDatabase {
+  _$AppDatabase([StreamController<String>? listener]) {
+    changeListener = listener ?? StreamController<String>.broadcast();
+  }
+
+  Dao? _daoInstance;
+
+  Future<sqflite.Database> open(
+    String path,
+    List<Migration> migrations, [
+    Callback? callback,
+  ]) async {
+    final databaseOptions = sqflite.OpenDatabaseOptions(
+      version: 1,
+      onConfigure: (database) async {
+        await database.execute('PRAGMA foreign_keys = ON');
+        await callback?.onConfigure?.call(database);
+      },
+      onOpen: (database) async {
+        await callback?.onOpen?.call(database);
+      },
+      onUpgrade: (database, startVersion, endVersion) async {
+        await MigrationAdapter.runMigrations(
+            database, startVersion, endVersion, migrations);
+
+        await callback?.onUpgrade?.call(database, startVersion, endVersion);
+      },
+      onCreate: (database, version) async {
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `FloorEntity` (`id` INTEGER NOT NULL, `description` TEXT NOT NULL, `image1` TEXT NOT NULL, `image2` TEXT NOT NULL, `image3` TEXT NOT NULL, `image4` TEXT NOT NULL, `image5` TEXT NOT NULL, `info` TEXT NOT NULL, `name` TEXT NOT NULL, `phone` TEXT NOT NULL, `price` TEXT NOT NULL, `userName` TEXT NOT NULL, `time` TEXT NOT NULL, PRIMARY KEY (`id`))');
+
+        await callback?.onCreate?.call(database, version);
+      },
+    );
+    return sqfliteDatabaseFactory.openDatabase(path, options: databaseOptions);
+  }
+
+  @override
+  Dao get dao {
+    return _daoInstance ??= _$Dao(database, changeListener);
+  }
+}
+
+class _$Dao extends Dao {
+  _$Dao(
+    this.database,
+    this.changeListener,
+  )   : _queryAdapter = QueryAdapter(database),
+        _floorEntityInsertionAdapter = InsertionAdapter(
+            database,
+            'FloorEntity',
+            (FloorEntity item) => <String, Object?>{
+                  'id': item.id,
+                  'description': item.description,
+                  'image1': item.image1,
+                  'image2': item.image2,
+                  'image3': item.image3,
+                  'image4': item.image4,
+                  'image5': item.image5,
+                  'info': item.info,
+                  'name': item.name,
+                  'phone': item.phone,
+                  'price': item.price,
+                  'userName': item.userName,
+                  'time': item.time
+                }),
+        _floorEntityDeletionAdapter = DeletionAdapter(
+            database,
+            'FloorEntity',
+            ['id'],
+            (FloorEntity item) => <String, Object?>{
+                  'id': item.id,
+                  'description': item.description,
+                  'image1': item.image1,
+                  'image2': item.image2,
+                  'image3': item.image3,
+                  'image4': item.image4,
+                  'image5': item.image5,
+                  'info': item.info,
+                  'name': item.name,
+                  'phone': item.phone,
+                  'price': item.price,
+                  'userName': item.userName,
+                  'time': item.time
+                });
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  final InsertionAdapter<FloorEntity> _floorEntityInsertionAdapter;
+
+  final DeletionAdapter<FloorEntity> _floorEntityDeletionAdapter;
+
+  @override
+  Future<List<FloorEntity>> getAllItems() async {
+    return _queryAdapter.queryList('SELECT * FROM FloorEntity',
+        mapper: (Map<String, Object?> row) => FloorEntity(
+            row['description'] as String,
+            row['image1'] as String,
+            row['image2'] as String,
+            row['image3'] as String,
+            row['image4'] as String,
+            row['image5'] as String,
+            row['info'] as String,
+            row['name'] as String,
+            row['phone'] as String,
+            row['price'] as String,
+            row['userName'] as String,
+            row['time'] as String,
+            row['id'] as int));
+  }
+
+  @override
+  Future<void> addItem(FloorEntity floorEntity) async {
+    await _floorEntityInsertionAdapter.insert(
+        floorEntity, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> deleteItem(FloorEntity floorEntity) async {
+    await _floorEntityDeletionAdapter.delete(floorEntity);
+  }
+}
